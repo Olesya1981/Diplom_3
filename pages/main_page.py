@@ -37,8 +37,8 @@ class MainPage(BasePage):
     @allure.step("При добавлении ингредиента в заказ, увеличивается каунтер данного ингредиента")
     def adding_an_ingredient_to_an_order_increases_the_counter_of_this_ingredient(self):
         element_value = self.get_text_from_element(MainPageLocators.CRATER_BUN_COUNTER)
-        element_from = self.find_element_with_wait(MainPageLocators.CRATER_BUN)
-        element_to = self.find_element_with_wait(MainPageLocators.BASKET)
+        element_from = self.find_element_with_wait(GeneralLocators.CRATER_BUN)
+        element_to = self.find_element_with_wait(GeneralLocators.BASKET)
         self.drag_n_drop(element_from, element_to)
         element_value_new = self.get_text_from_element(MainPageLocators.CRATER_BUN_COUNTER)
         return element_value, element_value_new
@@ -53,8 +53,13 @@ class MainPage(BasePage):
         text = self.get_text_from_element(MainPageLocators.WAITING_WINDOW)
         return text
 
+    @allure.step("Создание заказа")
+    def place_order(self):
+        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
+        self.click_to_element(GeneralLocators.CONSTRUCTOR_BUTTON)
+        element_from = self.find_element_with_wait(GeneralLocators.CRATER_BUN)
+        element_to = self.find_element_with_wait(GeneralLocators.BASKET)
+        self.drag_n_drop(element_from, element_to)
+        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
+        self.click_to_element_with_wait(GeneralLocators.PLACE_ORDER_BUTTON)
 
-    @allure.step('Закрывает всплывающее окно')
-    def press_esc(self):
-        action = ActionChains(self.driver)
-        action.send_keys(Keys.ESCAPE).perform()

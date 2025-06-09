@@ -58,17 +58,13 @@ class BasePage:
         element_class = self.find_element_with_wait(locator).get_attribute('class')
         return element_class
 
-    # @allure.step("Получить значение 'value' элемента")
-    # def get_attribute_value(self, locator):
-    #     element_value = self.find_element_with_wait(locator).get_attribute('value')
-    #     return element_value
 
     @allure.step("Авторизация пользователя")
     def user_authorization(self):
         self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
         self.click_to_element_with_wait(GeneralLocators.PERSONAL_ACCOUNT_BUTTON)
-        self.add_text_to_element(GeneralLocators.LOGIN_EMAIL_FIELD, registered_email)
-        self.add_text_to_element(GeneralLocators.LOGIN_PASSWORD_FIELD, registered_password)
+        self.add_text_to_element(GeneralLocators.LOGIN_EMAIL_FIELD, Constant.registered_email)
+        self.add_text_to_element(GeneralLocators.LOGIN_PASSWORD_FIELD, Constant.registered_password)
         self.wait.until(expected_conditions.element_to_be_clickable(GeneralLocators.LOGIN_LOGIN_BUTTON))
         self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
         self.click_to_element(GeneralLocators.LOGIN_LOGIN_BUTTON)
@@ -104,23 +100,14 @@ class BasePage:
 
     @allure.step("Функция drag and drop")
     def drag_n_drop(self, element_from, element_to):
-        if browser_name == 'chrome':
+        if Constant.browser_name == 'chrome':
             action = ActionChains(self.driver)
             action.drag_and_drop(element_from, element_to).perform()
         else:
             self.drag_and_drop_element(element_from, element_to)
 
-    @allure.step("Создание заказа")
-    def place_order(self):
-        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
-        self.click_to_element(GeneralLocators.CONSTRUCTOR_BUTTON)
-        element_from = self.find_element_with_wait(MainPageLocators.CRATER_BUN)
-        element_to = self.find_element_with_wait(MainPageLocators.BASKET)
-        self.drag_n_drop(element_from, element_to)
-        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
-        self.click_to_element_with_wait(MainPageLocators.PLACE_ORDER_BUTTON)
-
     @allure.step('Закрывает всплывающее окно')
     def press_esc(self):
         action = ActionChains(self.driver)
         action.send_keys(Keys.ESCAPE).perform()
+

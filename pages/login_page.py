@@ -14,7 +14,7 @@ class LoginPage(BasePage):
     @allure.step("Ввод почты и клик по кнопке 'Восстановить'")
     def enter_email_and_click_recovery_button(self):
         self.click_to_element_with_wait(LoginPageLocators.PASSWORD_RECOVERY_BUTTON)
-        self.add_text_to_element(LoginPageLocators.EMAIL_FIELD, email)
+        self.add_text_to_element(LoginPageLocators.EMAIL_FIELD, Constant.email)
         self.click_to_element_with_wait(LoginPageLocators.RECOVER_BUTTON)
         text = self.get_text_from_element(LoginPageLocators.SAVE_BUTTON)
         return text

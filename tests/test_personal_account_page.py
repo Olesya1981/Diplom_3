@@ -7,8 +7,8 @@ class TestPersonalAccountPage:
     @pytest.mark.parametrize(
         'urls',
         [
-            Urls.main_page_url,
-            Urls.order_feed_url
+            Urls.base_url,
+            Urls.base_url + Urls.order_endpoint
         ]
     )
     @allure.title("Переход по клику на личный кабинет")
@@ -20,14 +20,14 @@ class TestPersonalAccountPage:
 
     @allure.title("Проверяем переход в раздел 'История заказов'")
     def test_move_to_orders_history(self, driver):
-        driver.get(Urls.login_page_url)
+        driver.get(Urls.base_url + Urls.login_endpoint)
         personal_account_page = PersonalAccountPage(driver)
         element_class = personal_account_page.move_to_orders_history()
         assert element_class == "Account_link__2ETsJ text text_type_main-medium text_color_inactive Account_link_active__2opc9"
 
     @allure.title("Проверяем выход из аккаунта")
     def test_logout_from_account(self, driver):
-        driver.get(Urls.login_page_url)
+        driver.get(Urls.base_url + Urls.login_endpoint)
         personal_account_page = PersonalAccountPage(driver)
         text = personal_account_page.exit_from_account()
         assert text == 'Вход'

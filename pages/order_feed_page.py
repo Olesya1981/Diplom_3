@@ -24,7 +24,9 @@ class OrderFeedPage(BasePage):
         order_number = self.get_text_from_element(OrderFeedLocators.LAST_ORDER)[1:8]
         self.click_to_element_with_wait(OrderFeedLocators.ORDER_FEED_BUTTON)
         for i in range(1, 20):
-            text = self.get_text_from_element((By.XPATH, f".//div[@class ='OrderFeed_contentBox__3-tWb']/ul/li[{i}]"))
+            method, locator = OrderFeedLocators.ORDER_FEED_LIST
+            locator = locator.format(i)
+            text = self.get_text_from_element((method, locator))
             if text[1:8] == order_number:
                 return True
         return False
@@ -58,3 +60,13 @@ class OrderFeedPage(BasePage):
             expected_conditions.text_to_be_present_in_element(OrderFeedLocators.ORDER_IN_WORK, order_number))
         order_in_work = self.get_text_from_element(OrderFeedLocators.ORDER_IN_WORK)
         return int(order_number) == int(order_in_work)
+
+    @allure.step("Создание заказа")
+    def place_order(self):
+        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
+        self.click_to_element(GeneralLocators.CONSTRUCTOR_BUTTON)
+        element_from = self.find_element_with_wait(GeneralLocators.CRATER_BUN)
+        element_to = self.find_element_with_wait(GeneralLocators.BASKET)
+        self.drag_n_drop(element_from, element_to)
+        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
+        self.click_to_element_with_wait(GeneralLocators.PLACE_ORDER_BUTTON)

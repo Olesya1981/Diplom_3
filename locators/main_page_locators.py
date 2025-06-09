@@ -13,5 +13,4 @@ class MainPageLocators:
 
 #Каунтеры
     CRATER_BUN_COUNTER = (By.XPATH, ".//a[@href = '/ingredient/61c0c5a71d1f82001bdaaa6c']//p[@class='counter_counter__num__3nue1']")
-    CRATER_BUN = (By.XPATH, ".//a[@href='/ingredient/61c0c5a71d1f82001bdaaa6c']")
-    BASKET = (By.XPATH, ".//ul[@class='BurgerConstructor_basket__list__l9dp_']")
+
