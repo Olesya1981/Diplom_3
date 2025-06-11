@@ -10,3 +10,4 @@ class OrderFeedLocators:
     ORDER_IN_WORK = (By.XPATH, ".//ul[@class='OrderFeed_orderListReady__1YFem OrderFeed_orderList__cBvyi']")
     ORDER_NUMBER_WINDOW = (By.XPATH, ".//h2[@class='Modal_modal__title_shadow__3ikwq Modal_modal__title__2L34m text text_type_digits-large mb-8']")
     ORDER_FEED_LIST = (By.XPATH, ".//div[@class ='OrderFeed_contentBox__3-tWb']/ul/li[{}]")
+

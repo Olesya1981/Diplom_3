@@ -7,7 +7,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 from data import *
 import allure
 from locators.general_locators import GeneralLocators
-from locators.main_page_locators import MainPageLocators
 
 
 class BasePage:
@@ -59,16 +58,6 @@ class BasePage:
         return element_class
 
 
-    @allure.step("Авторизация пользователя")
-    def user_authorization(self):
-        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
-        self.click_to_element_with_wait(GeneralLocators.PERSONAL_ACCOUNT_BUTTON)
-        self.add_text_to_element(GeneralLocators.LOGIN_EMAIL_FIELD, Constant.registered_email)
-        self.add_text_to_element(GeneralLocators.LOGIN_PASSWORD_FIELD, Constant.registered_password)
-        self.wait.until(expected_conditions.element_to_be_clickable(GeneralLocators.LOGIN_LOGIN_BUTTON))
-        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
-        self.click_to_element(GeneralLocators.LOGIN_LOGIN_BUTTON)
-
     @allure.step("Метод перемещения элемента")
     def drag_and_drop_element(self, source_element, target_element):
         script = """
@@ -109,5 +98,6 @@ class BasePage:
     @allure.step('Закрывает всплывающее окно')
     def press_esc(self):
         action = ActionChains(self.driver)
+        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
         action.send_keys(Keys.ESCAPE).perform()
 

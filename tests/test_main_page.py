@@ -46,4 +46,6 @@ class TestMainPage:
         driver.get(Urls.base_url)
         main_page = MainPage(driver)
         order_number = main_page.an_authorized_user_can_place_an_order()
-        assert int(order_number) > 230000
+        assert int(order_number) > 240000
+
+

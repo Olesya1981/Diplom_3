@@ -2,8 +2,6 @@ from pages.base_page import *
 from locators.general_locators import *
 import allure
 from locators.main_page_locators import *
-from selenium.webdriver.common.action_chains import ActionChains
-
 
 class MainPage(BasePage):
 
@@ -62,4 +60,14 @@ class MainPage(BasePage):
         self.drag_n_drop(element_from, element_to)
         self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
         self.click_to_element_with_wait(GeneralLocators.PLACE_ORDER_BUTTON)
+
+    @allure.step("Авторизация пользователя")
+    def user_authorization(self):
+        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
+        self.click_to_element_with_wait(GeneralLocators.PERSONAL_ACCOUNT_BUTTON)
+        self.add_text_to_element(GeneralLocators.LOGIN_EMAIL_FIELD, Constant.registered_email)
+        self.add_text_to_element(GeneralLocators.LOGIN_PASSWORD_FIELD, Constant.registered_password)
+        self.wait.until(expected_conditions.element_to_be_clickable(GeneralLocators.LOGIN_LOGIN_BUTTON))
+        self.wait.until(expected_conditions.invisibility_of_element_located(GeneralLocators.OVERLAYING_ELEMENT))
+        self.click_to_element(GeneralLocators.LOGIN_LOGIN_BUTTON)
 
